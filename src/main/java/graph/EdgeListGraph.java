@@ -15,7 +15,7 @@ public class EdgeListGraph extends Graph {
     }
 
     @Override
-    public void addEdge(int from, int to) {
+    public void addEdge(final int from, final int to) {
         edges.add(new Pair<>(from, to));
     }
 
