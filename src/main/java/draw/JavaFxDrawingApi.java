@@ -14,12 +14,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class JavaFxDrawingApi extends Application implements DrawingApi {
-    private final List<Shape> shapes = new ArrayList<>();
+    private static final List<Shape> shapes = new ArrayList<>();
 
     @Override
     public void start(final Stage stage) {
         final Group figures = new Group(shapes.stream().map(Group::new).collect(Collectors.toList()));
         stage.setScene(new Scene(figures, width, height));
+        stage.show();
     }
 
     @Override
@@ -30,5 +31,10 @@ public class JavaFxDrawingApi extends Application implements DrawingApi {
     @Override
     public void drawLine(Pair<Double, Double> from, Pair<Double, Double> to) {
         shapes.add(new Line(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
+    }
+
+    @Override
+    public void plot() {
+        launch(this.getClass());
     }
 }

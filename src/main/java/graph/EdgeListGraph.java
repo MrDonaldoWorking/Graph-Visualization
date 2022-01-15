@@ -20,7 +20,7 @@ public class EdgeListGraph extends Graph {
     }
 
     @Override
-    public void draw() {
-
+    protected List<Pair<Integer, Integer>> getEdges() {
+        return edges;
     }
 }

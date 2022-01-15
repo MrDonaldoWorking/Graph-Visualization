@@ -2,6 +2,8 @@ package draw;
 
 import entity.Pair;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.Line2D;
 import java.util.List;
 
@@ -26,16 +28,26 @@ public class AwtDrawingApi extends Frame implements DrawingApi {
 
     @Override
     public void drawCircle(final Pair<Double, Double> center, final double radius) {
-        circles.add(new Ellipse2D.Double(
-                center.getFirst() - radius,
-                center.getSecond() - radius,
-                radius * 2,
-                radius * 2
-                ));
+        circles.add(new Ellipse2D.Double(center.getFirst(), center.getSecond(), radius, radius));
     }
 
     @Override
     public void drawLine(final Pair<Double, Double> from, final Pair<Double, Double> to) {
         lines.add(new Line2D.Double(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
+    }
+
+    @Override
+    public void plot() {
+        addWindowListener(new WindowAdapter() {
+            /**
+             * on close
+             */
+            @Override
+            public void windowClosing(final WindowEvent e) {
+                System.exit(0);
+            }
+        });
+        setSize((int) width, (int) height);
+        setVisible(true);
     }
 }

@@ -1,20 +1,21 @@
 package graph;
 
 import draw.DrawingApi;
+import entity.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdjMatrixGraph extends Graph {
-    private final List<List<Integer>> matrix = new ArrayList<>();
+    private final List<List<Boolean>> matrix = new ArrayList<>();
 
     public AdjMatrixGraph(final DrawingApi api, final int vertices) {
         super(api, vertices);
 
         for (int v = 0; v  < vertices; ++v) {
-            final List<Integer> row = new ArrayList<>();
+            final List<Boolean> row = new ArrayList<>();
             for (int u = 0; u < vertices; ++u) {
-                row.add(0);
+                row.add(false);
             }
             matrix.add(row);
         }
@@ -22,11 +23,17 @@ public class AdjMatrixGraph extends Graph {
 
     @Override
     public void addEdge(final int from, final int to) {
-        matrix.get(from).set(to, matrix.get(from).get(to) + 1);
+        matrix.get(from).set(to, true);
     }
 
     @Override
-    public void draw() {
-
+    protected List<Pair<Integer, Integer>> getEdges() {
+        final List<Pair<Integer, Integer>> edges = new ArrayList<>();
+        for (int v = 0; v < vertices; ++v) {
+            for (int u = 0; u < vertices; ++u) {
+                edges.add(new Pair<>(v, u));
+            }
+        }
+        return edges;
     }
 }
